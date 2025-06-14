@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Untuk Revina Azzalea - Cintaku Abadi</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #1a001a, #330033, #1a001a);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #fff;
+            min-height: 100vh;
+            overflow-x: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            perspective: 1000px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            text-align: center;
+            padding: 30px;
+            z-index: 10;
+            position: relative;
+        }
+        
+        .header {
+            margin-bottom: 40px;
+            animation: fadeIn 2s ease-out;
+        }
+        
+        h1 {
+            font-size: 4.5rem;
+            margin-bottom: 10px;
+            background: linear-gradient(45deg, #ff4d94, #ff99cc, #ffccff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 15px rgba(255, 77, 148, 0.5);
+        }
+        
+        h2 {
+            font-size: 2.5rem;
+            font-weight: 300;
+            color: #ffccff;
+            margin-bottom: 30px;
+        }
+        
+        .flower-container {
+            position: relative;
+            margin: 50px auto;
+            width: 500px;
+            height: 500px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            animation: float 8s ease-in-out infinite;
+            transform-style: preserve-3d;
+            cursor: pointer;
+        }
+        
+        .flower {
+            position: relative;
+            width: 300px;
+            height: 300px;
+            transform: scale(1.1) rotateX(5deg);
+            transition: transform 0.5s ease;
+        }
+        
+        .flower:hover {
+            transform: scale(1.15) rotateX(10deg);
+        }
+        
+        .center {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80px;
+            height: 80px;
+            background: radial-gradient(#ffd700, #ff9800);
+            border-radius: 50%;
+            box-shadow: 0 0 30px #ffd700;
+            z-index: 10;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .center:hover {
+            transform: translate(-50%, -50%) scale(1.2);
+            box-shadow: 0 0 50px #ffd700;
+        }
+        
+        .petal {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 120px;
+            height: 200px;
+            background: linear-gradient(to bottom, #ff4d94, #ff1a75);
+            border-radius: 60px 60px 60px 60px;
+            transform-origin: 0 0;
+            box-shadow: 
+                inset 0 0 10px rgba(255, 255, 255, 0.5),
+                0 0 15px rgba(255, 77, 148, 0.7);
+            transition: all 0.5s ease;
+            cursor: pointer;
+        }
+        
+        .petal:hover {
+            filter: brightness(1.2);
+            transform: rotate(var(--rot)) scale(1.15);
+        }
+        
+        .petal:nth-child(2) { transform: rotate(45deg); background: linear-gradient(to bottom, #ff3385, #ff0066); }
+        .petal:nth-child(3) { transform: rotate(90deg); background: linear-gradient(to bottom, #ff1a75, #e6005c); }
+        .petal:nth-child(4) { transform: rotate(135deg); background: linear-gradient(to bottom, #ff0066, #cc0052); }
+        .petal:nth-child(5) { transform: rotate(180deg); background: linear-gradient(to bottom, #ff1a75, #e6005c); }
+        .petal:nth-child(6) { transform: rotate(225deg); background: linear-gradient(to bottom, #ff3385, #ff0066); }
+        .petal:nth-child(7) { transform: rotate(270deg); background: linear-gradient(to bottom, #ff4d94, #ff1a75); }
+        .petal:nth-child(8) { transform: rotate(315deg); background: linear-gradient(to bottom, #ff66a3, #ff3385); }
+        
+        .stem {
+            position: absolute;
+            bottom: -100px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 15px;
+            height: 250px;
+            background: linear-gradient(to right, #339966, #1f7a1f);
+            border-radius: 10px;
+            z-index: -1;
+            box-shadow: 0 0 10px rgba(0, 100, 0, 0.5);
+        }
+        
+        .leaf {
+            position: absolute;
+            width: 70px;
+            height: 40px;
+            background: linear-gradient(to right, #33cc66, #29a329);
+            border-radius: 0 40px 0 40px;
+            bottom: 50px;
+            left: 50%;
+            transform: translateX(-50%) rotate(20deg);
+            z-index: -2;
+            transition: all 0.3s ease;
+        }
+        
+        .leaf:hover {
+            transform: translateX(-50%) rotate(25deg) scale(1.1);
+        }
+        
+        .leaf:nth-child(2) {
+            transform: translateX(-50%) rotate(-20deg);
+            bottom: 80px;
+            left: 55%;
+        }
+        
+        .leaf:nth-child(2):hover {
+            transform: translateX(-50%) rotate(-25deg) scale(1.1);
+        }
+        
+        .messages {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            margin: 50px auto;
+            max-width: 800px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            animation: fadeIn 3s ease-out;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .message {
+            font-size: 1.8rem;
+            line-height: 1.6;
+            padding: 20px;
+            border-radius: 15px;
+            background: rgba(255, 77, 148, 0.15);
+            transition: all 0.4s ease;
+            transform: translateY(0);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .message:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 77, 148, 0.25);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .message:nth-child(even) {
+            background: rgba(102, 51, 153, 0.15);
+        }
+        
+        .message:nth-child(even):hover {
+            background: rgba(102, 51, 153, 0.25);
+        }
+        
+        .signature {
+            margin-top: 40px;
+            font-size: 2.2rem;
+            font-style: italic;
+            color: #ffccff;
+            text-shadow: 0 0 10px rgba(255, 204, 255, 0.7);
+            animation: pulse 3s infinite;
+            padding: 20px;
+            border-radius: 15px;
+            background: rgba(255, 204, 255, 0.1);
+            cursor: pointer;
+            transition: all 0.4s ease;
+        }
+        
+        .signature:hover {
+            transform: scale(1.05);
+            background: rgba(255, 204, 255, 0.2);
+            box-shadow: 0 0 30px rgba(255, 204, 255, 0.3);
+        }
+        
+        .hearts {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+        
+        .heart {
+            position: absolute;
+            font-size: 2rem;
+            color: rgba(255, 77, 148, 0.7);
+            animation: floatHeart 15s linear forwards;
+            opacity: 0;
+        }
+        
+        .controls {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            display: flex;
+            gap: 15px;
+            z-index: 100;
+        }
+        
+        .btn {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: rgba(255, 77, 148, 0.3);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
+        }
+        
+        .btn:hover {
+            transform: scale(1.1);
+            background: rgba(255, 77, 148, 0.5);
+            box-shadow: 0 0 15px rgba(255, 77, 148, 0.7);
+        }
+        
+        .btn i {
+            font-size: 24px;
+            color: white;
+        }
+        
+        .message-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.5s ease;
+        }
+        
+        .message-modal.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+        
+        .message-content {
+            background: linear-gradient(135deg, #ff4d94, #9933ff);
+            padding: 40px;
+            border-radius: 20px;
+            max-width: 600px;
+            width: 90%;
+            text-align: center;
+            transform: scale(0.8);
+            transition: transform 0.5s ease;
+            position: relative;
+        }
+        
+        .message-modal.active .message-content {
+            transform: scale(1);
+        }
+        
+        .message-content h3 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: white;
+        }
+        
+        .message-content p {
+            font-size: 1.8rem;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+        
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+        }
+        
+        .lyrics-container {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 25px;
+            margin: 40px auto;
+            max-width: 800px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            text-align: left;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        
+        .lyrics-title {
+            font-size: 2rem;
+            margin-bottom: 15px;
+            text-align: center;
+            color: #ffccff;
+            text-shadow: 0 0 10px rgba(255, 204, 255, 0.5);
+        }
+        
+        .lyrics {
+            font-size: 1.5rem;
+            line-height: 1.8;
+            text-align: center;
+            font-style: italic;
+        }
+        
+        .lyrics p {
+            margin: 10px 0;
+        }
+        
+        .highlight {
+            color: #ff99cc;
+            font-weight: bold;
+        }
+        
+        /* Animations */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes pulse {
+            0% { opacity: 0.7; }
+            50% { opacity: 1; text-shadow: 0 0 15px rgba(255, 204, 255, 1); }
+            100% { opacity: 0.7; }
+        }
+        
+        @keyframes floatHeart {
+            0% { 
+                opacity: 0; 
+                transform: translateY(100vh) scale(0.2); 
+            }
+            10% { opacity: 1; }
+            90% { opacity: 0.8; }
+            100% { 
+                opacity: 0; 
+                transform: translateY(-100px) scale(1.5) rotate(360deg); 
+            }
+        }
+        
+        @keyframes glow {
+            0% { box-shadow: 0 0 10px rgba(255, 77, 148, 0.5); }
+            50% { box-shadow: 0 0 30px rgba(255, 77, 148, 0.9); }
+            100% { box-shadow: 0 0 10px rgba(255, 77, 148, 0.5); }
+        }
+        
+        /* Responsiveness */
+        @media (max-width: 768px) {
+            h1 { font-size: 3.5rem; }
+            h2 { font-size: 2rem; }
+            .flower-container { 
+                width: 100%; 
+                height: 400px;
+                transform: scale(0.8);
+            }
+            .message { font-size: 1.5rem; }
+            .lyrics { font-size: 1.3rem; }
+        }
+        
+        @media (max-width: 480px) {
+            h1 { font-size: 2.5rem; }
+            h2 { font-size: 1.5rem; }
+            .flower-container { 
+                height: 300px;
+                transform: scale(0.7);
+            }
+            .messages { padding: 15px; }
+            .message { font-size: 1.3rem; padding: 15px; }
+            .signature { font-size: 1.8rem; padding: 15px; }
+            .lyrics { font-size: 1.1rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="hearts" id="hearts"></div>
+    
+    <div class="container">
+        <div class="header">
+            <h1>Untuk Revina Azzalea</h1>
+            <h2>Bunga Cintaku yang Selalu Mekar</h2>
+        </div>
+        
+        <div class="flower-container" id="flower-container">
+            <div class="flower" id="flower">
+                <div class="center" id="flower-center"></div>
+                <div class="petal"></div>
+                <div class="petal"></div>
+                <div class="petal"></div>
+                <div class="petal"></div>
+                <div class="petal"></div>
+                <div class="petal"></div>
+                <div class="petal"></div>
+                <div class="petal"></div>
+                <div class="stem"></div>
+                <div class="leaf"></div>
+                <div class="leaf"></div>
+            </div>
+        </div>
+        
+        <div class="lyrics-container">
+            <div class="lyrics-title">Sempurna - Andra and The Backbone</div>
+            <div class="lyrics">
+                <p>Kau begitu sempurna</p>
+                <p>Di mataku kau begitu indah</p>
+                <p>Kau membuat diriku akan selalu memujamu</p>
+                <br>
+                <p class="highlight">Kau seperti bidadari</p>
+                <p class="highlight">Yang turun dari kayangan</p>
+                <p class="highlight">Kau membuat diriku akan selalu mencintaimu</p>
+                <br>
+                <p>Setiap hari ku tak bisa</p>
+                <p>Melepaskan diriku dari dirimu</p>
+                <p>Setiap saat ku selalu memikirkan dirimu</p>
+                <br>
+                <p>Kau adalah darahku</p>
+                <p>Kau adalah jantungku</p>
+                <p>Kau adalah hidupku, lengkapi diriku</p>
+            </div>
+        </div>
+        
+        <div class="messages" id="messages">
+            <div class="message" data-text="Revina, setiap kelopak bunga ini mewakili keindahan yang kau miliki">
+                <i class="fas fa-heart"></i> Revina, setiap kelopak bunga ini mewakili keindahan yang kau miliki
+            </div>
+            <div class="message" data-text="Di hatiku, kau adalah bunga terindah yang pernah mekar">
+                <i class="fas fa-heart"></i> Di hatiku, kau adalah bunga terindah yang pernah mekar
+            </div>
+            <div class="message" data-text="Wajahmu yang cantik bagaikan kelopak mawar di pagi hari">
+                <i class="fas fa-heart"></i> Wajahmu yang cantik bagaikan kelopak mawar di pagi hari
+            </div>
+        </div>
+        
+        <div class="signature" id="signature">
+            Dengan cinta yang abadi,<br>
+            <span style="font-size: 2.5rem; display: block; margin-top: 10px;">❤️ Untukmu Selamanya ❤️</span>
+        </div>
+    </div>
+    
+    <div class="controls">
+        <div class="btn" id="music-btn">
+            <i class="fas fa-music"></i>
+        </div>
+        <div class="btn" id="heart-btn">
+            <i class="fas fa-heart"></i>
+        </div>
+        <div class="btn" id="message-btn">
+            <i class="fas fa-envelope"></i>
+        </div>
+    </div>
+    
+    <div class="message-modal" id="message-modal">
+        <div class="message-content">
+            <button class="close-modal" id="close-modal">&times;</button>
+            <h3>Pesan Spesial</h3>
+            <p id="modal-text">Revina, kamu adalah bunga terindah dalam taman hidupku...</p>
+        </div>
+    </div>
+    
+    <audio id="bg-music" loop>
+        <source src="https://www.dropbox.com/scl/fi/7z7b0a8d9s1y7l7f0q3v5/Andra-and-the-Backbone-Sempurna.mp3?rlkey=8i0itw1f8a4h1fz9g1j8g0c1g&dl=1" type="audio/mpeg">
+    </audio>
+
+    <script>
+        // Create floating hearts
+        function createHearts() {
+            const heartsContainer = document.getElementById('hearts');
+            const heartCount = 30;
+            
+            for (let i = 0; i < heartCount; i++) {
+                const heart = document.createElement('div');
+                heart.innerHTML = '❤️';
+                heart.classList.add('heart');
+                
+                // Random position
+                heart.style.left = `${Math.random() * 100}%`;
+                
+                // Random animation duration
+                const duration = Math.random() * 15 + 10;
+                heart.style.animationDuration = `${duration}s`;
+                
+                // Random animation delay
+                const delay = Math.random() * 5;
+                heart.style.animationDelay = `${delay}s`;
+                
+                // Random size
+                const size = Math.random() * 1 + 1;
+                heart.style.fontSize = `${size}rem`;
+                
+                heartsContainer.appendChild(heart);
+            }
+        }
+        
+        // Setup flower interaction
+        function setupFlowerInteraction() {
+            const flower = document.getElementById('flower');
+            const petals = document.querySelectorAll('.petal');
+            const center = document.getElementById('flower-center');
+            const container = document.getElementById('flower-container');
+            
+            // Petal hover effect
+            petals.forEach((petal, index) => {
+                const rotation = index * 45;
+                petal.style.setProperty('--rot', `${rotation}deg`);
+                
+                petal.addEventListener('click', () => {
+                    petal.style.filter = 'brightness(1.5)';
+                    petal.style.transform = `rotate(${rotation}deg) scale(1.3)`;
+                    
+                    setTimeout(() => {
+                        petal.style.filter = '';
+                        petal.style.transform = `rotate(${rotation}deg) scale(1)`;
+                    }, 1000);
+                    
+                    createHearts();
+                });
+            });
+            
+            // Center click effect
+            center.addEventListener('click', () => {
+                center.style.transform = 'translate(-50%, -50%) scale(1.5)';
+                center.style.boxShadow = '0 0 70px #ffd700';
+                
+                setTimeout(() => {
+                    center.style.transform = 'translate(-50%, -50%) scale(1)';
+                    center.style.boxShadow = '0 0 30px #ffd700';
+                }, 500);
+                
+                // Create heart explosion
+                for(let i = 0; i < 50; i++) {
+                    createHearts();
+                }
+            });
+            
+            // Container rotation
+            container.addEventListener('mousemove', (e) => {
+                const rect = container.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                
+                const rotateY = (x - centerX) / 30;
+                const rotateX = (centerY - y) / 30;
+                
+                container.style.transform = `rotateY(${rotateY}deg) rotateX(${rotateX}deg)`;
+            });
+            
+            container.addEventListener('mouseleave', () => {
+                container.style.transform = '';
+            });
+        }
+        
+        // Setup message interaction
+        function setupMessageInteraction() {
+            const messages = document.querySelectorAll('.message');
+            const modal = document.getElementById('message-modal');
+            const modalText = document.getElementById('modal-text');
+            const closeModal = document.getElementById('close-modal');
+            
+            messages.forEach(message => {
+                message.addEventListener('click', () => {
+                    const text = message.getAttribute('data-text');
+                    modalText.textContent = text;
+                    modal.classList.add('active');
+                });
+            });
+            
+            closeModal.addEventListener('click', () => {
+                modal.classList.remove('active');
+            });
+            
+            // Signature click
+            const signature = document.getElementById('signature');
+            signature.addEventListener('click', () => {
+                modalText.textContent = "Revina, terima kasih sudah menjadi bagian hidupku. Aku akan selalu mencintaimu sekarang dan selamanya. ❤️";
+                modal.classList.add('active');
+            });
+        }
+        
+        // Setup control buttons
+        function setupControls() {
+            const musicBtn = document.getElementById('music-btn');
+            const heartBtn = document.getElementById('heart-btn');
+            const messageBtn = document.getElementById('message-btn');
+            const audio = document.getElementById('bg-music');
+            
+            let musicPlaying = false;
+            
+            musicBtn.addEventListener('click', () => {
+                if (musicPlaying) {
+                    audio.pause();
+                    musicBtn.innerHTML = '<i class="fas fa-music"></i>';
+                } else {
+                    audio.play().catch(e => console.log("Autoplay prevented: ", e));
+                    musicBtn.innerHTML = '<i class="fas fa-pause"></i>';
+                }
+                musicPlaying = !musicPlaying;
+            });
+            
+            heartBtn.addEventListener('click', () => {
+                // Create heart explosion
+                for(let i = 0; i < 100; i++) {
+                    createHearts();
+                }
+                
+                heartBtn.innerHTML = '<i class="fas fa-heart" style="color:#ff4d94"></i>';
+                setTimeout(() => {
+                    heartBtn.innerHTML = '<i class="fas fa-heart"></i>';
+                }, 1000);
+            });
+            
+            messageBtn.addEventListener('click', () => {
+                modalText.textContent = "Revina, kamu adalah yang terbaik dalam hidupku. Setiap hari bersamamu adalah anugerah terindah. Aku mencintaimu lebih dari kata-kata bisa ungkapkan. 💖";
+                document.getElementById('message-modal').classList.add('active');
+            });
+        }
+        
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', () => {
+            createHearts();
+            setupFlowerInteraction();
+            setupMessageInteraction();
+            setupControls();
+            
+            // Create more hearts periodically
+            setInterval(createHearts, 3000);
+            
+            // Start music automatically (with user interaction)
+            document.body.addEventListener('click', function initMusic() {
+                const audio = document.getElementById('bg-music');
+                audio.play().catch(e => console.log("Autoplay prevented: ", e));
+                document.body.removeEventListener('click', initMusic);
+            }, { once: true });
+        });
+    </script>
+</body>
+</html>
